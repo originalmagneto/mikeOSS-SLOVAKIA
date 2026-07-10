@@ -1,0 +1,5 @@
+# Veľké médiá (audio/video z NotebookLM) — nedávať do gitu
+research/deep-research/audio/
+*.m4a
+*.mp3
+*.mp4
