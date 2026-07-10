@@ -171,23 +171,23 @@ flowchart LR
 ## 📈 Aktivita
 
 <!-- AUTO:ACTIVITY -->
-**28 commitov** · **31 súborov**
+**31 commitov** · **31 súborov**
 
 | Commit | Dátum | Autor | Správa |
 |---|---|---|---|
+| `699ea51` | 2026-07-10 | Majo Cuprik | Merge branch 'main' of https://github.com/originalmagneto/mikeOSS-SLOVAKIA |
+| `ecd57c3` | 2026-07-10 | Marián Čuprík | docs: odkaz na deep-research (report, živý HTML, audio) v hlavnom README |
+| `3b431a3` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
 | `f8a11e0` | 2026-07-10 | Marián Čuprík | chore: .nojekyll — GitHub Pages servuje HTML report priamo |
 | `8699349` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
 | `a3f4321` | 2026-07-10 | Marián Čuprík | docs: grafický deep-research report (rich markdown + HTML) |
 | `584072f` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
 | `c987be5` | 2026-07-10 | Marián Čuprík | chore: .gitignore pre veľké audio/video médiá z research |
-| `70a296a` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
-| `9e33d53` | 2026-07-10 | Marián Čuprík | research: deep research (NotebookLM, 245 zdrojov) — open-source legaltech, MCP, anonymizácia, BYOK, EU AI Act |
-| `fc50059` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
 <!-- /AUTO:ACTIVITY -->
 
 ---
 
 <div align="center">
 <sub>Sekcie označené 🤖 sa aktualizujú automaticky GitHub Action pri každom pushi — needitujte ich ručne.<br/>
-<b>Posledná automatická aktualizácia:</b> <!-- AUTO:UPDATED -->2026-07-10 11:40 UTC<!-- /AUTO:UPDATED --></sub>
+<b>Posledná automatická aktualizácia:</b> <!-- AUTO:UPDATED -->2026-07-10 11:41 UTC<!-- /AUTO:UPDATED --></sub>
 </div>
