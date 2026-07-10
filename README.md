@@ -120,8 +120,6 @@ mikeOSS-SLOVAKIA/
 │   └── workshopy.md
 ├── research/
 │   ├── deep-research/
-│   │   ├── audio/
-│   │   │   └── 2026-07-10-mikeoss-research-podcast-sk.m4a
 │   │   ├── 2026-07-10-open-source-legaltech-EU-mcp-anonymizacia.md
 │   │   ├── 2026-07-10-zdroje.md
 │   │   ├── README.md
@@ -171,10 +169,11 @@ flowchart LR
 ## 📈 Aktivita
 
 <!-- AUTO:ACTIVITY -->
-**31 commitov** · **31 súborov**
+**32 commitov** · **31 súborov**
 
 | Commit | Dátum | Autor | Správa |
 |---|---|---|---|
+| `4bc3c74` | 2026-07-10 | Marián Čuprík | docs: regenerácia README po merge |
 | `699ea51` | 2026-07-10 | Majo Cuprik | Merge branch 'main' of https://github.com/originalmagneto/mikeOSS-SLOVAKIA |
 | `ecd57c3` | 2026-07-10 | Marián Čuprík | docs: odkaz na deep-research (report, živý HTML, audio) v hlavnom README |
 | `3b431a3` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
@@ -182,7 +181,6 @@ flowchart LR
 | `8699349` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
 | `a3f4321` | 2026-07-10 | Marián Čuprík | docs: grafický deep-research report (rich markdown + HTML) |
 | `584072f` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
-| `c987be5` | 2026-07-10 | Marián Čuprík | chore: .gitignore pre veľké audio/video médiá z research |
 <!-- /AUTO:ACTIVITY -->
 
 ---
