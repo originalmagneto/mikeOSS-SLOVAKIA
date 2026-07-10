@@ -10,8 +10,12 @@
 
 ## Značka
 
+<!-- Nahrajte logo do assets/brand/logo.png a zobrazí sa tu. -->
+<img src="../assets/brand/logo.png" alt="MIKE OSS Slovakia — logo" width="220" align="right" />
+
 - **Názov:** MIKE OSS SLOVAKIA
-- **Logo:** monogram „M" v tvare koruny so symbolom váh spravodlivosti (zlatá na tmavom podklade)
+- **Logo:** okrúhly odznak — monogram „M" v tvare koruny, so symbolom váh spravodlivosti hore a antickým stĺpom v strede; zlatá na tmavo-námorníckom podklade so zlatým lemom.
+- **Claim v logu:** *KOMUNITA PRE ADVOKÁTOV*
 - **Podtitul:** *Telegram komunita pre advokátov* — `t.me/mikeoss_slovakia`
 - **Positioning:** *„Navrhnuté advokátmi pre advokátov"* — otvorená komunita advokátov a právnych profesionálov, ktorí zdieľajú vedomosti a moderné nástroje pre efektívnu právnu prax.
 

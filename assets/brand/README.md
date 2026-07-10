@@ -2,7 +2,8 @@
 
 Sem patria vizuálne podklady značky MIKE OSS Slovakia.
 
-- `moodboard.png` — koncept moodboard (logo, paleta, typografia, dashboard). Po nahratí sa automaticky zobrazí v [../../docs/brand-concept.md](../../docs/brand-concept.md).
-- Ďalej: logo (SVG/PNG), export farieb, ukážky UI.
+- `logo.png` — hlavné logo (okrúhly zlato-námornícky odznak). Zobrazí sa v [../../docs/brand-concept.md](../../docs/brand-concept.md) aj ako avatar Telegram skupiny.
+- `moodboard.png` — koncept moodboard (paleta, typografia, dashboard).
+- Ďalej podľa potreby: logo vo variantoch (SVG, monochróm), favicon, export farieb.
 
 Rozpis konceptu: [docs/brand-concept.md](../../docs/brand-concept.md)

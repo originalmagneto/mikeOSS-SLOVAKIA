@@ -156,11 +156,12 @@ flowchart LR
 ## 📈 Aktivita
 
 <!-- AUTO:ACTIVITY -->
-**3 commitov** · **25 súborov**
+**4 commitov** · **25 súborov**
 
 | Commit | Dátum | Autor | Správa |
 |---|---|---|---|
-| `93354ef` | 2026-07-10 | Marián Čuprík | ci: Telegram notifikácie z GitHubu (push/release/issue/PR) + návod |
+| `672520d` | 2026-07-10 | Marián Čuprík | test: logo značky do brand konceptu (overenie Telegram notifikácie) |
+| `9e0f349` | 2026-07-10 | Marián Čuprík | ci: Telegram notifikácie z GitHubu (push/release/issue/PR) + návod |
 | `4cc9f8e` | 2026-07-10 | Marián Čuprík | docs: pridaný vizuálny koncept značky (moodboard, paleta, dashboard) |
 | `eb79d33` | 2026-07-10 | Marián Čuprík | feat: prípravné repo — štruktúra, rich README s mermaid diagramami a auto-update workflow |
 <!-- /AUTO:ACTIVITY -->
@@ -169,5 +170,5 @@ flowchart LR
 
 <div align="center">
 <sub>Sekcie označené 🤖 sa aktualizujú automaticky GitHub Action pri každom pushi — needitujte ich ručne.<br/>
-<b>Posledná automatická aktualizácia:</b> <!-- AUTO:UPDATED -->2026-07-10 09:30 UTC<!-- /AUTO:UPDATED --></sub>
+<b>Posledná automatická aktualizácia:</b> <!-- AUTO:UPDATED -->2026-07-10 09:37 UTC<!-- /AUTO:UPDATED --></sub>
 </div>
