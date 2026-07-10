@@ -57,6 +57,12 @@ flowchart TB
     ADVOKAT(["👩‍⚖️ Advokát"]) --> fork
 ```
 
+## 🎨 Vizuálny koncept
+
+Ranný náčrt značky a produktu — logo (monogram „M" s váhami spravodlivosti), tmavo-zlatá paleta, typografia **Inter + Playfair Display** a koncept dashboardu (Spisy · Klienti · Dokumenty · Fakturácia · AI Asistent). Päť pilierov: **dôvera a bezpečnosť · efektivita · prehľadnosť · spolupráca · modernosť**.
+
+> Celý moodboard a rozpis: **[docs/brand-concept.md](docs/brand-concept.md)** · *(ide o koncept, nie schválený finálny dizajn)*
+
 ## 🗺️ Roadmapa
 
 ```mermaid
@@ -88,9 +94,12 @@ Detailný harmonogram: [planning/timeline.md](planning/timeline.md) · Backlog: 
 ```text
 mikeOSS-SLOVAKIA/
 ├── assets/
+│   └── brand/
+│       └── README.md
 ├── decisions/
 │   └── template.md
 ├── docs/
+│   ├── brand-concept.md
 │   ├── glossary.md
 │   ├── principles.md
 │   └── vision.md
@@ -146,16 +155,17 @@ flowchart LR
 ## 📈 Aktivita
 
 <!-- AUTO:ACTIVITY -->
-**1 commitov** · **21 súborov**
+**2 commitov** · **23 súborov**
 
 | Commit | Dátum | Autor | Správa |
 |---|---|---|---|
-| `030997d` | 2026-07-10 | Marián Čuprík | feat: prípravné repo — štruktúra, rich README s mermaid diagramami a auto-update workflow |
+| `b3ee88f` | 2026-07-10 | Marián Čuprík | docs: pridaný vizuálny koncept značky (moodboard, paleta, dashboard) |
+| `eb79d33` | 2026-07-10 | Marián Čuprík | feat: prípravné repo — štruktúra, rich README s mermaid diagramami a auto-update workflow |
 <!-- /AUTO:ACTIVITY -->
 
 ---
 
 <div align="center">
 <sub>Sekcie označené 🤖 sa aktualizujú automaticky GitHub Action pri každom pushi — needitujte ich ručne.<br/>
-<b>Posledná automatická aktualizácia:</b> <!-- AUTO:UPDATED -->2026-07-10 09:08 UTC<!-- /AUTO:UPDATED --></sub>
+<b>Posledná automatická aktualizácia:</b> <!-- AUTO:UPDATED -->2026-07-10 09:23 UTC<!-- /AUTO:UPDATED --></sub>
 </div>
