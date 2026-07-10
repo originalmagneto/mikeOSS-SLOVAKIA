@@ -8,7 +8,7 @@ on:
   issues:
     types: [opened, closed, reopened]
   pull_request:
-    types: [opened, closed, reopened, merged]
+    types: [opened, closed, reopened]
   discussion:
     types: [created]
 
@@ -70,6 +70,8 @@ ${NAME}
               ;;
             pull_request)
               ACT=$(jq -r '.action' "$E")
+              MERGED=$(jq -r '.pull_request.merged' "$E")
+              if [ "$ACT" = "closed" ] && [ "$MERGED" = "true" ]; then ACT="merged ✅"; fi
               NUM=$(jq -r '.pull_request.number' "$E")
               TITLE=$(jq -r '.pull_request.title' "$E" | esc)
               URL=$(jq -r '.pull_request.html_url' "$E")
