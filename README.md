@@ -156,23 +156,23 @@ flowchart LR
 ## 📈 Aktivita
 
 <!-- AUTO:ACTIVITY -->
-**18 commitov** · **25 súborov**
+**20 commitov** · **25 súborov**
 
 | Commit | Dátum | Autor | Správa |
 |---|---|---|---|
+| `adef6e2` | 2026-07-10 | Marián Čuprík | chore: upratanie testovacích komentárov po overení topic notifikácií |
+| `13d81df` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
 | `3402eed` | 2026-07-10 | Marián Čuprík | test: overenie po aktualizácii chat_id na supergroup |
 | `c33a908` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
 | `4471303` | 2026-07-10 | Marián Čuprík | test: overenie smerovania notifikácie do topicu 2 |
 | `287d4ff` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
 | `57e8831` | 2026-07-10 | Marián Čuprík | feat: voliteľné smerovanie Telegram notifikácií do topicu (message_thread_id) |
 | `201e21c` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
-| `58812ef` | 2026-07-10 | Marián Čuprík | chore: odstránený testovací komentár po overení Telegram integrácie |
-| `f57b873` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
 <!-- /AUTO:ACTIVITY -->
 
 ---
 
 <div align="center">
 <sub>Sekcie označené 🤖 sa aktualizujú automaticky GitHub Action pri každom pushi — needitujte ich ručne.<br/>
-<b>Posledná automatická aktualizácia:</b> <!-- AUTO:UPDATED -->2026-07-10 10:15 UTC<!-- /AUTO:UPDATED --></sub>
+<b>Posledná automatická aktualizácia:</b> <!-- AUTO:UPDATED -->2026-07-10 10:16 UTC<!-- /AUTO:UPDATED --></sub>
 </div>
