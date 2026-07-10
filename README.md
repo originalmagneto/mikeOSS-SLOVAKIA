@@ -63,6 +63,14 @@ Ranný náčrt značky a produktu — logo (monogram „M" s váhami spravodlivo
 
 > Celý moodboard a rozpis: **[docs/brand-concept.md](docs/brand-concept.md)** · *(ide o koncept, nie schválený finálny dizajn)*
 
+## 🔬 Rešerše
+
+Prvý **deep-research** balík (NotebookLM, 245 zdrojov, 6 kôl) o open-source AI pre slovenskú advokáciu — MCP servery, anonymizácia (MasKIT/Stella), integrácia vlastného a lokálneho API (BYOK), a compliance (SAK 2025, EU AI Act).
+
+- 📊 **Grafický report (rich markdown):** [research/deep-research/](research/deep-research/)
+- 🌐 **Živý HTML report:** [originalmagneto.github.io/mikeOSS-SLOVAKIA/research/deep-research/report.html](https://originalmagneto.github.io/mikeOSS-SLOVAKIA/research/deep-research/report.html)
+- 🎧 **Audio podcast (SK):** [Releases](https://github.com/originalmagneto/mikeOSS-SLOVAKIA/releases/tag/research-2026-07-10)
+
 ## 🗺️ Roadmapa
 
 ```mermaid
@@ -112,6 +120,8 @@ mikeOSS-SLOVAKIA/
 │   └── workshopy.md
 ├── research/
 │   ├── deep-research/
+│   │   ├── audio/
+│   │   │   └── 2026-07-10-mikeoss-research-podcast-sk.m4a
 │   │   ├── 2026-07-10-open-source-legaltech-EU-mcp-anonymizacia.md
 │   │   ├── 2026-07-10-zdroje.md
 │   │   ├── README.md
@@ -161,23 +171,23 @@ flowchart LR
 ## 📈 Aktivita
 
 <!-- AUTO:ACTIVITY -->
-**26 commitov** · **30 súborov**
+**28 commitov** · **31 súborov**
 
 | Commit | Dátum | Autor | Správa |
 |---|---|---|---|
+| `f8a11e0` | 2026-07-10 | Marián Čuprík | chore: .nojekyll — GitHub Pages servuje HTML report priamo |
+| `8699349` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
 | `a3f4321` | 2026-07-10 | Marián Čuprík | docs: grafický deep-research report (rich markdown + HTML) |
 | `584072f` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
 | `c987be5` | 2026-07-10 | Marián Čuprík | chore: .gitignore pre veľké audio/video médiá z research |
 | `70a296a` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
 | `9e33d53` | 2026-07-10 | Marián Čuprík | research: deep research (NotebookLM, 245 zdrojov) — open-source legaltech, MCP, anonymizácia, BYOK, EU AI Act |
 | `fc50059` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
-| `adef6e2` | 2026-07-10 | Marián Čuprík | chore: upratanie testovacích komentárov po overení topic notifikácií |
-| `13d81df` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
 <!-- /AUTO:ACTIVITY -->
 
 ---
 
 <div align="center">
 <sub>Sekcie označené 🤖 sa aktualizujú automaticky GitHub Action pri každom pushi — needitujte ich ručne.<br/>
-<b>Posledná automatická aktualizácia:</b> <!-- AUTO:UPDATED -->2026-07-10 11:39 UTC<!-- /AUTO:UPDATED --></sub>
+<b>Posledná automatická aktualizácia:</b> <!-- AUTO:UPDATED -->2026-07-10 11:40 UTC<!-- /AUTO:UPDATED --></sub>
 </div>
