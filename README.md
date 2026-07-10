@@ -102,6 +102,7 @@ mikeOSS-SLOVAKIA/
 │   ├── brand-concept.md
 │   ├── glossary.md
 │   ├── principles.md
+│   ├── telegram-notifikacie.md
 │   └── vision.md
 ├── meetings/
 ├── planning/
@@ -155,11 +156,12 @@ flowchart LR
 ## 📈 Aktivita
 
 <!-- AUTO:ACTIVITY -->
-**2 commitov** · **23 súborov**
+**3 commitov** · **25 súborov**
 
 | Commit | Dátum | Autor | Správa |
 |---|---|---|---|
-| `b3ee88f` | 2026-07-10 | Marián Čuprík | docs: pridaný vizuálny koncept značky (moodboard, paleta, dashboard) |
+| `93354ef` | 2026-07-10 | Marián Čuprík | ci: Telegram notifikácie z GitHubu (push/release/issue/PR) + návod |
+| `4cc9f8e` | 2026-07-10 | Marián Čuprík | docs: pridaný vizuálny koncept značky (moodboard, paleta, dashboard) |
 | `eb79d33` | 2026-07-10 | Marián Čuprík | feat: prípravné repo — štruktúra, rich README s mermaid diagramami a auto-update workflow |
 <!-- /AUTO:ACTIVITY -->
 
@@ -167,5 +169,5 @@ flowchart LR
 
 <div align="center">
 <sub>Sekcie označené 🤖 sa aktualizujú automaticky GitHub Action pri každom pushi — needitujte ich ručne.<br/>
-<b>Posledná automatická aktualizácia:</b> <!-- AUTO:UPDATED -->2026-07-10 09:23 UTC<!-- /AUTO:UPDATED --></sub>
+<b>Posledná automatická aktualizácia:</b> <!-- AUTO:UPDATED -->2026-07-10 09:30 UTC<!-- /AUTO:UPDATED --></sub>
 </div>

@@ -1,0 +1,96 @@
+name: Telegram notifikácie
+
+on:
+  push:
+    branches: [main]
+  release:
+    types: [published]
+  issues:
+    types: [opened, closed, reopened]
+  pull_request:
+    types: [opened, closed, reopened, merged]
+  discussion:
+    types: [created]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    # neposielať notifikáciu o commite, ktorý spravil auto-README bot
+    if: github.actor != 'github-actions[bot]'
+    env:
+      TG_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+      TG_CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - name: Skontroluj, či sú nastavené secrets
+        id: guard
+        run: |
+          if [ -z "$TG_TOKEN" ] || [ -z "$TG_CHAT" ]; then
+            echo "Chýba TELEGRAM_TOKEN alebo TELEGRAM_CHAT_ID – preskakujem (nie je to chyba)."
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Pošli správu do Telegramu
+        if: steps.guard.outputs.ok == 'true'
+        run: |
+          set -euo pipefail
+          esc() { sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g'; }
+          E="$GITHUB_EVENT_PATH"
+
+          case "$GITHUB_EVENT_NAME" in
+            push)
+              N=$(jq '.commits | length' "$E")
+              LIST=$(jq -r '.commits[] | "• " + (.message | split("\n")[0])' "$E" | head -10 | esc)
+              COMPARE=$(jq -r '.compare' "$E")
+              ACTOR=$(printf '%s' "$GITHUB_ACTOR" | esc)
+              TEXT="🚀 <b>Push do ${GITHUB_REF_NAME}</b> — ${ACTOR}
+${N} commit(ov):
+${LIST}
+
+<a href=\"${COMPARE}\">Zobraziť zmeny na GitHube</a>"
+              ;;
+            release)
+              TAG=$(jq -r '.release.tag_name' "$E" | esc)
+              NAME=$(jq -r '.release.name // .release.tag_name' "$E" | esc)
+              URL=$(jq -r '.release.html_url' "$E")
+              TEXT="🎉 <b>Nový release</b> ${TAG}
+${NAME}
+
+<a href=\"${URL}\">Otvoriť release</a>"
+              ;;
+            issues)
+              ACT=$(jq -r '.action' "$E")
+              NUM=$(jq -r '.issue.number' "$E")
+              TITLE=$(jq -r '.issue.title' "$E" | esc)
+              URL=$(jq -r '.issue.html_url' "$E")
+              TEXT="🐛 <b>Issue ${ACT}</b> #${NUM}: ${TITLE}
+
+<a href=\"${URL}\">Otvoriť issue</a>"
+              ;;
+            pull_request)
+              ACT=$(jq -r '.action' "$E")
+              NUM=$(jq -r '.pull_request.number' "$E")
+              TITLE=$(jq -r '.pull_request.title' "$E" | esc)
+              URL=$(jq -r '.pull_request.html_url' "$E")
+              TEXT="🔀 <b>Pull request ${ACT}</b> #${NUM}: ${TITLE}
+
+<a href=\"${URL}\">Otvoriť PR</a>"
+              ;;
+            discussion)
+              TITLE=$(jq -r '.discussion.title' "$E" | esc)
+              URL=$(jq -r '.discussion.html_url' "$E")
+              TEXT="💬 <b>Nová diskusia</b>: ${TITLE}
+
+<a href=\"${URL}\">Otvoriť diskusiu</a>"
+              ;;
+            *)
+              TEXT="ℹ️ Udalosť: ${GITHUB_EVENT_NAME}"
+              ;;
+          esac
+
+          curl -sS "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${TG_CHAT}" \
+            --data-urlencode "text=${TEXT}" \
+            -d parse_mode=HTML \
+            -d disable_web_page_preview=true
