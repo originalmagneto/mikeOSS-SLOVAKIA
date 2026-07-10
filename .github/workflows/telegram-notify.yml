@@ -20,6 +20,8 @@ jobs:
     env:
       TG_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
       TG_CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+      # ID topicu vo forum-skupine (voliteľné). Prázdne = hlavné vlákno „General".
+      TG_TOPIC: ${{ vars.TELEGRAM_TOPIC_ID }}
     steps:
       - name: Skontroluj, či sú nastavené secrets
         id: guard
@@ -78,8 +80,15 @@ jobs:
               ;;
           esac
 
+          # voliteľné smerovanie do konkrétneho topicu forum-skupiny
+          TOPIC_ARG=()
+          if [ -n "${TG_TOPIC:-}" ]; then
+            TOPIC_ARG=(--data-urlencode "message_thread_id=${TG_TOPIC}")
+          fi
+
           curl -sS "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
             --data-urlencode "chat_id=${TG_CHAT}" \
+            "${TOPIC_ARG[@]}" \
             --data-urlencode "text=${TEXT}" \
             -d parse_mode=HTML \
             -d disable_web_page_preview=true

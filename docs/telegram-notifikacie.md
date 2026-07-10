@@ -33,6 +33,22 @@ V repe: **Settings → Secrets and variables → Actions → New repository secr
 ### 5. Test
 Spravte hocijaký push do `main` (alebo v repe **Actions → Telegram notifikácie → Run workflow**). Do skupiny by mala doraziť správa. Ak nie, pozrite log behu v záložke **Actions**.
 
+## Smerovanie do konkrétneho topicu (forum-skupina)
+
+Ak je skupina vo forum režime (má *Topics*), notifikácie sa dajú posielať len do jedného vybraného topicu.
+
+1. **Zistite ID topicu:** v Telegrame otvorte daný topic → podržte/kliknite pravým na hociktorú správu v ňom → **Copy Link**. Dostanete odkaz v tvare
+   `https://t.me/c/2812345678/23/105`
+   **Prostredné číslo** (tu `23`) je ID topicu. *(Ak sú v odkaze len dve čísla, ide o hlavné vlákno „General" — to nemá samostatné ID.)*
+   Alternatívne pridajte do topicu [@getidsbot](https://t.me/getidsbot), ktorý vypíše *Topic ID*.
+2. **Uložte ho ako premennú** (nie secret — nie je citlivé): v repe **Settings → Secrets and variables → Actions → záložka _Variables_ → New repository variable**:
+
+   | Name | Hodnota |
+   |---|---|
+   | `TELEGRAM_TOPIC_ID` | ID topicu (napr. `23`) |
+
+3. Hotovo. Od ďalšieho pushu chodia správy do tohto topicu. Keď premennú zmažete, notifikácie pôjdu späť do hlavného vlákna.
+
 ## Čo sa notifikuje
 
 | Udalosť | Kedy |
