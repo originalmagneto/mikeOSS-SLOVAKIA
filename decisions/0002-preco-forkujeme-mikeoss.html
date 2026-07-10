@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADR 0002 — Prečo forkujeme mikeOSS</title>
+<style>
+  :root{
+    --navy:#0d1b2a;--navy2:#13243a;--gold:#c9a24a;--gold-soft:#e4c979;
+    --ink:#1a2233;--muted:#5b6577;--line:#e4e7ec;--bg:#f6f7f9;--card:#fff;
+    --green:#1f9d55;--amber:#c98a1a;--red:#c0392b;--violet:#7c3aed;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{--ink:#e8ecf3;--muted:#9aa6b8;--line:#25324a;--bg:#0b131f;--card:#111c2e}
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--gold);text-decoration:none}a:hover{text-decoration:underline}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px}
+  .hero{background:radial-gradient(1100px 380px at 75% -10%,rgba(201,162,74,.22),transparent),
+    linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;padding:48px 0 40px;border-bottom:3px solid var(--gold)}
+  .kicker{letter-spacing:.26em;text-transform:uppercase;font-size:12px;color:var(--gold-soft);font-weight:700}
+  .hero h1{margin:.3em 0 .1em;font-size:clamp(26px,4.6vw,40px);line-height:1.12;font-weight:800}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .chip{background:rgba(255,255,255,.08);border:1px solid rgba(201,162,74,.4);color:#fff;padding:5px 12px;border-radius:100px;font-size:12.5px;font-weight:600}
+  .chip b{color:var(--gold-soft)}
+  section{margin:34px 0}
+  h2{font-size:20px;font-weight:800;margin:0 0 10px;display:flex;align-items:center;gap:10px}
+  h2 .n{background:var(--navy);color:var(--gold);width:28px;height:28px;border-radius:8px;display:inline-grid;place-items:center;font-size:13px;flex:none}
+  @media(prefers-color-scheme:dark){h2 .n{background:#0a1524}}
+  .decision{background:linear-gradient(135deg,rgba(201,162,74,.14),rgba(201,162,74,.05));border:1.5px solid var(--gold);
+    border-radius:16px;padding:20px 22px;font-size:17px;font-weight:600}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:0 4px 14px rgba(13,27,42,.05)}
+  table{width:100%;border-collapse:collapse;font-size:14px;border-radius:12px;overflow:hidden}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--navy);color:#fff;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+  @media(prefers-color-scheme:dark){th{background:#0a1524}}
+  tr:last-child td{border-bottom:none}
+  .no{color:var(--red);font-weight:700}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:720px){.grid3{grid-template-columns:1fr}}
+  .cond{border-top:4px solid var(--red)}
+  .cond h3{margin:.1em 0 .3em;font-size:15px}
+  .cond .num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--red);color:#fff;font-weight:800;font-size:13px;margin-bottom:6px}
+  .note{border-left:4px solid var(--gold);background:rgba(201,162,74,.08);padding:12px 16px;border-radius:0 10px 10px 0;margin:12px 0;font-size:14.5px}
+  .note.warn{border-color:var(--amber);background:rgba(201,138,26,.10)}
+  .note.imp{border-color:var(--violet);background:rgba(124,58,237,.08)}
+  .stat{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:8px 0}
+  @media(max-width:640px){.stat{grid-template-columns:repeat(2,1fr)}}
+  .stat .b{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+  .stat .v{font-size:20px;font-weight:800;color:var(--gold)}
+  .stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  ul.check{list-style:none;padding:0;margin:0}
+  ul.check li{padding:8px 8px 8px 34px;position:relative;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:var(--card)}
+  ul.check li::before{content:"☐";position:absolute;left:12px;top:8px;color:var(--gold);font-size:16px}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0}
+  .node{background:var(--card);border:1.5px solid var(--line);border-radius:11px;padding:9px 13px;font-size:13px;font-weight:600}
+  .node.g{background:var(--navy);color:#fff;border-color:var(--gold)}
+  .arrow{color:var(--gold);font-weight:800}
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:22px 0 46px;color:var(--muted);font-size:13px;text-align:center}
+  code{background:rgba(127,127,127,.14);padding:1px 6px;border-radius:5px;font-size:.9em}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <div class="kicker">⚖️ MikeOSS Slovakia · Decision Record</div>
+  <h1>ADR 0002 — Prečo forkujeme mikeOSS</h1>
+  <div class="meta">
+    <span class="chip">📅 <b>2026-07-10</b></span>
+    <span class="chip">Stav: <b>prijaté</b> (na potvrdenie MF+IR)</span>
+    <span class="chip">Rozhodli: <b>MČ</b></span>
+  </div>
+</div></header>
+
+<div class="wrap">
+
+  <section>
+    <div class="decision">
+      🎯 <b>Forkneme mikeOSS, AI-asistovane ho prispôsobíme pre SK</b> (skills, use-cases, naše existujúce SK MCP servery, anonymizácia), vydáme ako open-source a <b>monetizujeme cez vzdelávanie</b> — nie ako softvér ani službu.
+    </div>
+    <div class="flow" style="margin-top:14px">
+      <span class="node">🍴 Fork mikeOSS</span><span class="arrow">→</span>
+      <span class="node">🤖 AI adaptácia SK</span><span class="arrow">→</span>
+      <span class="node">📖 OSS komunite</span><span class="arrow">→</span>
+      <span class="node">⭐ Dobré meno</span><span class="arrow">→</span>
+      <span class="node g">🎓 Školenia = príjem</span>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">1</span> Obmedzenia, ktoré určujú tvar</h2>
+    <div class="card">
+      <ul style="margin:0;padding-left:20px">
+        <li><b>Voľnočasová aktivita</b>, nie firma. Adaptáciu ženie AI → nízky development.</li>
+        <li><b>NEpredávame službu (SaaS).</b> Poskytovateľ = zodpovednosť + SLA + preklopenie advokát → softvérový vendor. Vylučuje sa s výkonom advokácie.</li>
+        <li><b>Monetizácia = vzdelávanie.</b> Nástroj je kredibilita; zarábame na školeniach, nie na kóde.</li>
+        <li><b>Open-source</b>, nechané komunite → dobré meno.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span> Zvažované alternatívy — a prečo NIE</h2>
+    <div class="card" style="overflow-x:auto">
+    <table>
+      <tr><th>Alternatíva</th><th>Prečo <span class="no">NIE</span></th></tr>
+      <tr><td><b>SaaS / predaj softvéru ako služby</b></td><td>Stávam sa poskytovateľom → zodpovednosť, SLA, údržba. Advokát → vendor. Vylučuje sa s advokáciou.</td></tr>
+      <tr><td><b>Len MCP + skills (bez forku)</b></td><td>Netechnický advokát nerozbehne „naklonuj MCP config". Fork dáva použiteľnú <b>appku</b> s UI.</td></tr>
+      <tr><td><b>Postaviť od nuly</b></td><td>mikeOSS/Stella už cestu prešliapali robustne. Zbytočná práca.</td></tr>
+      <tr><td><b>Fork Stelly namiesto mikeOSS</b></td><td>Ostáva na porovnanie (viď nižšie) — Stella je z Česka, permisívnejšia, už má anonymizáciu.</td></tr>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">3</span> Prečo mikeOSS — overené fakty</h2>
+    <div class="stat">
+      <div class="b"><div class="v">AGPL-3.0</div><div class="k">licencia</div></div>
+      <div class="b"><div class="v">~2,5 mes</div><div class="k">vek projektu</div></div>
+      <div class="b"><div class="v">3 924 ⭐</div><div class="k">1 238 forkov</div></div>
+      <div class="b"><div class="v">3 / ~6</div><div class="k">prispievatelia / commity mes.</div></div>
+    </div>
+    <div class="note warn"><b>„Známy → preto maintainovaný" je slabý spoj.</b> 3-členné jadro + spomaľujúce tempo = riziko, že upstream o pol roka zamrzne. <b>Mitigácia:</b> aj tak forkujeme a adaptujeme si to sami → na upstreame nezávisíme. Rozhodnutie opierame o <i>„forkujeme, lebo si to prispôsobíme"</i>, nie o <i>„bude maintainované"</i>.</div>
+    <div class="note imp"><b>Faktická oprava:</b> mikeOSS <b>nie je z Česka</b> (Will Chen, ex-Latham). Z Česka je <b>Stella</b> + anonymizátor <b>MasKIT</b>. „Prebrať z Česka" = zo Stelly — ktorá je permisívnejšia (Apache-2.0) a anonymizáciu už má. <b>Akcia:</b> 30-min porovnanie „mikeOSS + požičať anonymizáciu zo Stelly" vs „Stella ako základ" pred prvým commitom.</div>
+  </section>
+
+  <section>
+    <h2><span class="n">4</span> Tri podmienky (nezávislé od biznis modelu)</h2>
+    <div class="grid3">
+      <div class="card cond"><div class="num">1</div><h3>Anonymizácia = jadro</h3><p style="margin:0;font-size:14px">Reputačné, nie servisné riziko. Učíme ľudí nástroj používať + mená naviazané (IR/SAK). Buď <b>naozaj chytá SK identifikátory</b> (rodné číslo, IBAN, tituly), alebo jasný disclaimer „asistenčné, vždy skontroluj — NIE záruka". Sem 80 % energie.</p></div>
+      <div class="card cond"><div class="num">2</div><h3>Optika SAK</h3><p style="margin:0;font-size:14px">Školenia + spoluautor v predsedníctve komory = riziko rámca „insider". <b>Fix pred spustením:</b> transparentný vzťah, nič v štýle „schválené komorou".</p></div>
+      <div class="card cond"><div class="num">3</div><h3>Nezávislosť od upstreamu</h3><p style="margin:0;font-size:14px">Forkujeme, lebo si to prispôsobíme — nie preto, že „bude maintainované". AGPL-3.0 dôsledky (žiadna uzavretá verzia, hosting = zdroj) vedome berieme; sedia s OSS zámerom.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">5</span> Najlacnejší test — pred forkom platformy</h2>
+    <div class="card">
+      <p style="margin:0 0 10px">Vezmi <b>jeden reálny spis</b> → anonymizácia + jedna Slov-Lex/judikatúra rešerš (cez existujúce SK MCP servery) → over:</p>
+      <ul class="check">
+        <li>Ušetrí to advokátovi <b>≥ 1 hodinu</b>?</li>
+        <li><b>Neprepustí ani jeden</b> citlivý údaj (rodné číslo, IBAN)?</li>
+      </ul>
+      <p style="margin:8px 0 0;color:var(--muted);font-size:14px">Ak áno → forkujeme. Ak nie → vieme to skôr, než sme investovali.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">✓</span> Ďalšie kroky</h2>
+    <ul class="check">
+      <li>30-min porovnanie mikeOSS vs Stella ako základ</li>
+      <li>Over licenciu Stelly (Apache-2.0?)</li>
+      <li>Najlacnejší test na 1 reálnom spise</li>
+      <li>Potvrdenie ADR: MF, IR</li>
+      <li>Rozhodnúť formu transparentnosti voči SAK</li>
+    </ul>
+  </section>
+
+  <footer>
+    ADR 0002 · MikeOSS Slovakia · 2026-07-10 · <a href="./0002-preco-forkujeme-mikeoss.md">Markdown verzia</a> · <a href="../research/deep-research/report.html">Deep research report</a>
+  </footer>
+</div>
+</body>
+</html>
