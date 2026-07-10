@@ -156,23 +156,23 @@ flowchart LR
 ## 📈 Aktivita
 
 <!-- AUTO:ACTIVITY -->
-**10 commitov** · **25 súborov**
+**12 commitov** · **25 súborov**
 
 | Commit | Dátum | Autor | Správa |
 |---|---|---|---|
+| `58812ef` | 2026-07-10 | Marián Čuprík | chore: odstránený testovací komentár po overení Telegram integrácie |
+| `f57b873` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
 | `b5e1f79` | 2026-07-10 | Marián Čuprík | test: end-to-end overenie Telegram notifikácie po oprave billingu |
 | `8492443` | 2026-07-10 | github-actions[bot] | docs: auto-update README [skip ci] |
 | `c2368f8` | 2026-07-10 | Marián Čuprík | Revert "test: overenie Actions po prepnutí repa na verejné (Telegram notifikácia)" |
 | `ac134cd` | 2026-07-10 | Marián Čuprík | test: overenie Actions po prepnutí repa na verejné (Telegram notifikácia) |
 | `03141f7` | 2026-07-10 | Marián Čuprík | fix: viacriadkové správy cez printf (YAML block-scalar sa lámal na nezanorených riadkoch) |
 | `4b4c4cb` | 2026-07-10 | Marián Čuprík | fix: neplatný pull_request typ 'merged' → detekcia cez closed+merged |
-| `a5c5f32` | 2026-07-10 | Marián Čuprík | test: logo značky do brand konceptu (overenie Telegram notifikácie) |
-| `9e0f349` | 2026-07-10 | Marián Čuprík | ci: Telegram notifikácie z GitHubu (push/release/issue/PR) + návod |
 <!-- /AUTO:ACTIVITY -->
 
 ---
 
 <div align="center">
 <sub>Sekcie označené 🤖 sa aktualizujú automaticky GitHub Action pri každom pushi — needitujte ich ručne.<br/>
-<b>Posledná automatická aktualizácia:</b> <!-- AUTO:UPDATED -->2026-07-10 09:56 UTC<!-- /AUTO:UPDATED --></sub>
+<b>Posledná automatická aktualizácia:</b> <!-- AUTO:UPDATED -->2026-07-10 10:00 UTC<!-- /AUTO:UPDATED --></sub>
 </div>
