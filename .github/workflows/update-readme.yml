@@ -1,0 +1,34 @@
+name: Auto-update README
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    # zabráni nekonečnej slučke, keď workflow sám pushne
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Regenerate README auto sections
+        run: python3 .github/scripts/update_readme.py
+
+      - name: Commit & push if changed
+        run: |
+          if git diff --quiet README.md; then
+            echo "README bez zmien."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "docs: auto-update README [skip ci]"
+          git push
