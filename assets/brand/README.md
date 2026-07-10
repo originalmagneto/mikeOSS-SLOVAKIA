@@ -10,3 +10,5 @@ Rozpis konceptu: [docs/brand-concept.md](../../docs/brand-concept.md)
 
 
 <!-- topic-test 101426Z -->
+
+<!-- topic-test2 101522Z -->
