@@ -53,3 +53,5 @@ Zoznam sa dá rozšíriť úpravou sekcie `on:` a `case` vo workflowe.
 - **GitHub Mobile** appka — osobné push notifikácie (mentions, review requests), doplnok k skupinovým.
 - **Opačný smer (Telegram → GitHub)** — vytváranie issue príkazom z Telegramu je možné, ale vyžaduje malý serverless webhook (napr. Cloudflare Worker). Ak to budeme chcieť, spíšeme ako samostatný [spec](../specs/).
 - **GitHub Projects / Discussions** — na plánovanie a hlasovanie o nápadoch (viď [AGENTS.md](../AGENTS.md)); Discussions sa už tiež notifikujú.
+
+> Test: repo je verejné, GitHub Actions aktívne (2026-07-10T09:46Z).
