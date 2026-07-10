@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MikeOSS SK — Deep Research Report</title>
+<style>
+  :root{
+    --navy:#0d1b2a; --navy2:#13243a; --gold:#c9a24a; --gold-soft:#e4c979;
+    --ink:#1a2233; --muted:#5b6577; --line:#e4e7ec; --bg:#f6f7f9; --card:#ffffff;
+    --green:#1f9d55; --amber:#c98a1a; --violet:#7c3aed;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --ink:#e8ecf3; --muted:#9aa6b8; --line:#25324a; --bg:#0b131f; --card:#111c2e; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--gold);text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+  /* HERO */
+  .hero{background:radial-gradient(1200px 400px at 70% -10%,rgba(201,162,74,.25),transparent),
+    linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;padding:56px 0 44px;border-bottom:3px solid var(--gold)}
+  .hero .wrap{position:relative}
+  .kicker{letter-spacing:.28em;text-transform:uppercase;font-size:12px;color:var(--gold-soft);font-weight:700}
+  .hero h1{margin:.3em 0 .2em;font-size:clamp(28px,5vw,44px);line-height:1.1;font-weight:800}
+  .hero p{color:#c7d0de;margin:.2em 0 0;max-width:620px}
+  .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .badge{background:rgba(255,255,255,.08);border:1px solid rgba(201,162,74,.4);color:#fff;
+    padding:5px 12px;border-radius:100px;font-size:12.5px;font-weight:600}
+  .badge b{color:var(--gold-soft)}
+  /* STATS */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:-28px 0 0}
+  @media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 14px;text-align:center;
+    box-shadow:0 6px 20px rgba(13,27,42,.06)}
+  .stat .n{font-size:26px;font-weight:800;color:var(--gold)}
+  .stat .l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  section{margin:40px 0}
+  h2{font-size:22px;font-weight:800;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+  h2 .num{background:var(--navy);color:var(--gold);width:30px;height:30px;border-radius:9px;display:inline-grid;
+    place-items:center;font-size:14px;flex:none}
+  @media(prefers-color-scheme:dark){h2 .num{background:#0a1524}}
+  .lead{color:var(--muted);margin:.2em 0 1em}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;
+    box-shadow:0 4px 16px rgba(13,27,42,.05)}
+  table{width:100%;border-collapse:collapse;font-size:14px;overflow:hidden;border-radius:12px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th{background:var(--navy);color:#fff;font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
+  @media(prefers-color-scheme:dark){th{background:#0a1524}}
+  tr:last-child td{border-bottom:none}
+  .pill{font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:100px;white-space:nowrap}
+  .ok{background:rgba(31,157,85,.14);color:var(--green)} .warn{background:rgba(201,138,26,.16);color:var(--amber)}
+  .tag{display:inline-block;background:rgba(124,58,237,.12);color:var(--violet);font-size:11.5px;font-weight:700;
+    padding:2px 9px;border-radius:100px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr}}
+  .note{border-left:4px solid var(--gold);background:rgba(201,162,74,.08);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+  .note.imp{border-color:var(--violet);background:rgba(124,58,237,.08)}
+  /* FLOW */
+  .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin:6px 0}
+  .node{flex:1 1 150px;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13.5px}
+  .node .t{font-weight:700;display:block;margin-bottom:2px}
+  .node.sec{background:var(--navy);color:#fff;border-color:var(--gold)}
+  .node.sec .t{color:var(--gold-soft)}
+  .arrow{align-self:center;color:var(--gold);font-weight:800;font-size:18px}
+  .steps{counter-reset:s;display:grid;gap:10px;margin:0;padding:0;list-style:none}
+  .steps li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px 12px 52px;position:relative}
+  .steps li::before{counter-increment:s;content:counter(s);position:absolute;left:12px;top:50%;transform:translateY(-50%);
+    width:28px;height:28px;background:var(--gold);color:var(--navy);font-weight:800;border-radius:8px;display:grid;place-items:center}
+  footer{border-top:1px solid var(--line);margin-top:50px;padding:24px 0 50px;color:var(--muted);font-size:13px;text-align:center}
+  code{background:rgba(127,127,127,.14);padding:1px 6px;border-radius:5px;font-size:.9em}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">⚖️ MikeOSS Slovakia · Deep Research</div>
+    <h1>Open-source AI pre slovenskú advokáciu</h1>
+    <p>Strategický podklad pre fork MikeOSS — open-source riešenia, MCP servery, anonymizácia, integrácia vlastného a lokálneho API, a regulačný rámec.</p>
+    <div class="badges">
+      <span class="badge"><b>245</b>&nbsp;zdrojov</span>
+      <span class="badge"><b>6</b>&nbsp;deep-research kôl</span>
+      <span class="badge">aktuálnosť <b>2025–2026</b></span>
+      <span class="badge">🇸🇰 jurisdikcia SR</span>
+      <span class="badge">zdroj: <b>NotebookLM</b></span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="n">9+</div><div class="l">open-source projektov</div></div>
+    <div class="stat"><div class="n">3</div><div class="l">navrhnuté SK MCP servery</div></div>
+    <div class="stat"><div class="n">BYOK</div><div class="l">vlastné + lokálne API</div></div>
+    <div class="stat"><div class="n">SAK'25</div><div class="l">+ EU AI Act</div></div>
+  </div>
+
+  <div class="note imp">
+    <b>Ako čítať:</b> report je zakotvený do 245 webových zdrojov (NotebookLM). Projekty označené <span class="pill warn">over ⚠️</span> pred zaradením over na GitHube (stav údržby).
+  </div>
+
+  <!-- 1 -->
+  <section>
+    <h2><span class="num">1</span> Open-source &amp; EU riešenia</h2>
+    <p class="lead">Aktívne udržiavané, self-hostovateľné, s reléváciou pre EU / SK / CZ.</p>
+    <div class="card" style="overflow-x:auto">
+    <table>
+      <tr><th>Projekt</th><th>Funkcia</th><th>Licencia</th><th>Stav</th></tr>
+      <tr><td><b>MikeOSS</b></td><td>Dokumentový asistent (chat s PDF)</td><td>Open Source</td><td><span class="pill ok">aktívny</span></td></tr>
+      <tr><td><b>Stella</b></td><td>Open-source právny workspace</td><td>Open Source</td><td><span class="pill ok">aktívny</span></td></tr>
+      <tr><td><b>MasKIT</b></td><td>Anonymizácia / pseudonymizácia</td><td>Open Source</td><td><span class="pill ok">aktívny v0.70</span></td></tr>
+      <tr><td><b>SaulLM</b></td><td>Špecializovaný právny LLM</td><td>MIT</td><td><span class="pill ok">aktívny</span></td></tr>
+      <tr><td><b>Lawma</b></td><td>Klasifikácia právnych úloh</td><td>Open Source</td><td><span class="pill ok">Llama 3.2</span></td></tr>
+      <tr><td><b>EmuBERT</b></td><td>Model pre regionálnu legislatívu</td><td>Open Source</td><td><span class="pill ok">RoBERTa</span></td></tr>
+      <tr><td>Sound Suite</td><td>Local-first indexácia &amp; search</td><td>Polyform NC</td><td><span class="pill warn">over ⚠️</span></td></tr>
+      <tr><td>adeu</td><td>Agentické redigovanie DOCX</td><td>Open Source</td><td><span class="pill warn">over ⚠️</span></td></tr>
+      <tr><td>pasal</td><td>RAG pre legislatívu</td><td>Open Source</td><td><span class="pill warn">over ⚠️</span></td></tr>
+    </table>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section>
+    <h2><span class="num">2</span> Anonymizácia — MasKIT</h2>
+    <p class="lead">Najkonkrétnejší technický základ pre bezpečnú prácu s citlivým SK/CZ textom (to, čo rieši aj Stella pred-LLM).</p>
+    <div class="grid2">
+      <div class="card">
+        <b>Architektúra</b>
+        <p style="margin:.4em 0 0"><code>UDPipe</code> (Universal Dependencies, syntax) + <code>NameTag</code> (NER) → chápe gramatické vzťahy a presne identifikuje subjekty.</p>
+        <p style="margin:.6em 0 0"><span class="tag">anonymizácia</span> údaj → trieda <code>M-ZENA-MENO-1</code><br>
+        <span class="tag">pseudonymizácia</span> údaj → náhodné meno, zachová pád a rod</p>
+      </div>
+      <div class="card">
+        <b>Známe limity ⚠️</b>
+        <p style="margin:.4em 0 0">Recall ~0,8 · Precision ~0,64.</p>
+        <p style="margin:.4em 0 0">Nedetekuje: <b>akademické tituly, rodné čísla, IBAN, ID dátových schránok</b> → doplniť regex pravidlá + manuálnu kontrolu.</p>
+      </div>
+    </div>
+    <div class="note"><b>Použitie:</b> MasKIT ako middleware „sanitizačný filter" medzi workspace a LLM.</div>
+  </section>
+
+  <!-- 3 -->
+  <section>
+    <h2><span class="num">3</span> MCP servery pre právo</h2>
+    <p class="lead">Lokálne aj remote. Princíp „zero document downloads" — dáta ostávajú v úložisku, AI cez MCP siaha len na index a fragmenty.</p>
+    <div class="flow">
+      <div class="node sec"><span class="t">🔌 LLM agent</span>Claude / lokálny model</div>
+      <div class="arrow">→</div>
+      <div class="node"><span class="t">Slov-Lex MCP</span>zákony SR, sémantické vyhľadávanie</div>
+      <div class="node"><span class="t">ORSR / RPVS MCP</span>subjekty, KÚV, vlastníctvo</div>
+      <div class="node"><span class="t">Judikatúra SR MCP</span>rozhodnutia + verifikácia citácií</div>
+    </div>
+    <p class="lead" style="margin-top:12px">Referencia zo zdrojov: <code>LegalMCP</code> (US právo, 18 nástrojov). Pre SR si servery staviame vlastné.</p>
+  </section>
+
+  <!-- 4 -->
+  <section>
+    <h2><span class="num">4</span> Agentické skills — čo automatizovať</h2>
+    <p class="lead">Agentický loop zrkadlí prácu advokáta.</p>
+    <div class="flow">
+      <div class="node"><span class="t">📥 READ</span>ingescia (skeny, e-maily)</div>
+      <div class="arrow">→</div>
+      <div class="node"><span class="t">🧠 THINK</span>doménové znalosti</div>
+      <div class="arrow">→</div>
+      <div class="node"><span class="t">✍️ WRITE</span>redline / memo</div>
+      <div class="arrow">→</div>
+      <div class="node sec"><span class="t">🔍 VERIFY</span>Glass Box — auditovateľné kroky</div>
+    </div>
+    <p class="lead" style="margin-top:12px">Úlohy: kontrola a draft zmlúv, due diligence, extrakcia lehôt zo súdnych podaní, právne memá. <b>Glass-box</b> = každý krok, citácia a redakcia sú spätne dohľadateľné.</p>
+  </section>
+
+  <!-- 5 -->
+  <section>
+    <h2><span class="num">5</span> Integrácia: subscription + vlastné + lokálne API</h2>
+    <p class="lead">Model-agnostic architektúra s BYOK, prepínajúca podľa citlivosti úlohy.</p>
+    <div class="flow">
+      <div class="node"><span class="t">🔀 LLM Gateway</span>LiteLLM / OpenRouter · BYOK</div>
+      <div class="arrow">→</div>
+      <div class="node sec"><span class="t">🔒 Lokálne</span>Ollama / SaulLM — citlivé dáta</div>
+      <div class="node"><span class="t">☁️ Cloud</span>vlastný API kľúč / subscription</div>
+    </div>
+    <div class="note"><b>Vzor:</b> „AI za firewallom klienta" — lokálne spracovanie pred akýmkoľvek cloud prenosom.</div>
+  </section>
+
+  <!-- 6 -->
+  <section>
+    <h2><span class="num">6</span> Compliance — čo treba splniť</h2>
+    <p class="lead">Trojstupňový rozhodovací test pred vložením dát (Metodické usmernenie SAK 2025).</p>
+    <ol class="steps">
+      <li><b>Fáza 1 — Režim spracovateľa.</b> Ak existuje zmluvná garancia proti trénovaniu modelu (profesionálne API) → bezpečná zóna.</li>
+      <li><b>Fáza 2 — Anonymizácia (MasKIT).</b> Ak je úspešná, mlčanlivosť nie je dotknutá a súhlas klienta netreba.</li>
+      <li><b>Fáza 3 — Súhlas klienta (last resort).</b> Ak dáta nemožno anonymizovať a použije sa rizikový nástroj → výslovný súhlas.</li>
+    </ol>
+    <div class="note imp"><b>+ EU AI Act:</b> transparentnosť a audit trail agentických krokov. <b>+ GDPR/mlčanlivosť:</b> dátová suverenita, self-hosting pri najcitlivejších dátach. Advokát nesie plnú zodpovednosť — pozor na <i>automation bias</i>.</div>
+  </section>
+
+  <!-- REC -->
+  <section>
+    <h2><span class="num">✓</span> Odporúčania pre MikeOSS Slovakia</h2>
+    <ol class="steps">
+      <li><b>Local-first indexácia</b> — index vzniká lokálne/offline.</li>
+      <li><b>Slov-Lex MCP wrapper</b> — sémantické vyhľadávanie + verifikácia citácií.</li>
+      <li><b>Sanitizačný filter (MasKIT)</b> medzi workspace a LLM, s regex pravidlami pre SK špecifiká (rodné čísla, IBAN).</li>
+      <li><b>LLM gateway s BYOK</b> + lokálny fallback (Ollama) — model-agnostic od začiatku.</li>
+      <li><b>Audit-ready logy</b> každého agentického kroku — EU AI Act aj SAK 2025.</li>
+    </ol>
+  </section>
+
+  <footer>
+    Vygenerované z NotebookLM notebooku „MikeOSS SK — Research" · 245 zdrojov · 2026-07-10.<br>
+    Projekty označené ⚠️ over pred zaradením do plánu. · <a href="./2026-07-10-zdroje.md">Zoznam zdrojov</a> · <a href="./README.md">Markdown verzia</a>
+  </footer>
+</div>
+</body>
+</html>
