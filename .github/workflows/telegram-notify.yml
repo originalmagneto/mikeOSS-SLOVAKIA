@@ -44,29 +44,20 @@ jobs:
               LIST=$(jq -r '.commits[] | "• " + (.message | split("\n")[0])' "$E" | head -10 | esc)
               COMPARE=$(jq -r '.compare' "$E")
               ACTOR=$(printf '%s' "$GITHUB_ACTOR" | esc)
-              TEXT="🚀 <b>Push do ${GITHUB_REF_NAME}</b> — ${ACTOR}
-${N} commit(ov):
-${LIST}
-
-<a href=\"${COMPARE}\">Zobraziť zmeny na GitHube</a>"
+              TEXT=$(printf '🚀 <b>Push do %s</b> — %s\n%s commit(ov):\n%s\n\n<a href="%s">Zobraziť zmeny na GitHube</a>' "$GITHUB_REF_NAME" "$ACTOR" "$N" "$LIST" "$COMPARE")
               ;;
             release)
               TAG=$(jq -r '.release.tag_name' "$E" | esc)
               NAME=$(jq -r '.release.name // .release.tag_name' "$E" | esc)
               URL=$(jq -r '.release.html_url' "$E")
-              TEXT="🎉 <b>Nový release</b> ${TAG}
-${NAME}
-
-<a href=\"${URL}\">Otvoriť release</a>"
+              TEXT=$(printf '🎉 <b>Nový release</b> %s\n%s\n\n<a href="%s">Otvoriť release</a>' "$TAG" "$NAME" "$URL")
               ;;
             issues)
               ACT=$(jq -r '.action' "$E")
               NUM=$(jq -r '.issue.number' "$E")
               TITLE=$(jq -r '.issue.title' "$E" | esc)
               URL=$(jq -r '.issue.html_url' "$E")
-              TEXT="🐛 <b>Issue ${ACT}</b> #${NUM}: ${TITLE}
-
-<a href=\"${URL}\">Otvoriť issue</a>"
+              TEXT=$(printf '🐛 <b>Issue %s</b> #%s: %s\n\n<a href="%s">Otvoriť issue</a>' "$ACT" "$NUM" "$TITLE" "$URL")
               ;;
             pull_request)
               ACT=$(jq -r '.action' "$E")
@@ -75,16 +66,12 @@ ${NAME}
               NUM=$(jq -r '.pull_request.number' "$E")
               TITLE=$(jq -r '.pull_request.title' "$E" | esc)
               URL=$(jq -r '.pull_request.html_url' "$E")
-              TEXT="🔀 <b>Pull request ${ACT}</b> #${NUM}: ${TITLE}
-
-<a href=\"${URL}\">Otvoriť PR</a>"
+              TEXT=$(printf '🔀 <b>Pull request %s</b> #%s: %s\n\n<a href="%s">Otvoriť PR</a>' "$ACT" "$NUM" "$TITLE" "$URL")
               ;;
             discussion)
               TITLE=$(jq -r '.discussion.title' "$E" | esc)
               URL=$(jq -r '.discussion.html_url' "$E")
-              TEXT="💬 <b>Nová diskusia</b>: ${TITLE}
-
-<a href=\"${URL}\">Otvoriť diskusiu</a>"
+              TEXT=$(printf '💬 <b>Nová diskusia</b>: %s\n\n<a href="%s">Otvoriť diskusiu</a>' "$TITLE" "$URL")
               ;;
             *)
               TEXT="ℹ️ Udalosť: ${GITHUB_EVENT_NAME}"
