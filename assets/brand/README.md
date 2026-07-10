@@ -9,6 +9,4 @@ Sem patria vizuálne podklady značky MIKE OSS Slovakia.
 Rozpis konceptu: [docs/brand-concept.md](../../docs/brand-concept.md)
 
 
-<!-- topic-test 101426Z -->
 
-<!-- topic-test2 101522Z -->
